@@ -1,0 +1,23 @@
+# Dependencies and generated web output
+node_modules/
+.next/
+.next-dev/
+out/
+*.tsbuildinfo
+*.log
+.vercel/
+
+# Credentials stay local, including apps/web/.env.local
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Common local artifacts; no mobile/model framework is assumed yet
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+models/artifacts/

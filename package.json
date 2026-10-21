@@ -1,0 +1,14 @@
+{
+  "name": "sayit-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["apps/web"],
+  "scripts": {
+    "dev": "npm run dev:web",
+    "dev:web": "npm run dev --workspace=@sayit/web",
+    "build": "npm run build:web",
+    "build:web": "npm run build --workspace=@sayit/web",
+    "start:web": "npm run start --workspace=@sayit/web",
+    "typecheck": "npm run typecheck --workspace=@sayit/web"
+  }
+}
