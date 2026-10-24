@@ -27,6 +27,7 @@ export default function Home() {
       <section id="kontak" className="section shell contact-grid" aria-labelledby="contact-title"><div><p className="eyebrow">03 / MARI TERHUBUNG</p><h2 id="contact-title">Hubungi Kami<span className="accent">.</span></h2><p>Punya pertanyaan atau ide untuk SayIt? Kami ingin mendengarnya.</p><div className="contact-mark" aria-hidden="true"><AudioLines size={80} strokeWidth={1.5} /></div></div><ContactForm /></section>
     </main><InstallPwaDialog /><footer className="shell footer"><a href="#beranda" className="logo" aria-label="SayIt, kembali ke beranda"><BrandLogo /></a><p>© {new Date().getFullYear()} SayIt. Akses untuk semua.</p></footer>
   </>;
+  // 
 }
 
 
