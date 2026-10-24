@@ -271,7 +271,15 @@ html[data-theme="light"] {
   --button:var(--brand);
 }
 h1 span { color:var(--headline-accent); }
-.header nav a[aria-current] { color:var(--accent-text); box-shadow:inset 0 -2px var(--brand); }
+.header nav a[aria-current] { color:var(--accent-text); }
+.header .nav-links { position:relative; }
+.header nav a { transition:color .3s ease; }
+.header nav a:hover { text-decoration:none; }
+.nav-indicator { position:absolute; left:0; bottom:0; height:2px; border-radius:2px; background:var(--brand); box-shadow:0 0 12px rgb(255 105 0 / 60%); pointer-events:none; opacity:0; }
+.nav-indicator[data-ready="true"] { opacity:1; }
+@media(prefers-reduced-motion:no-preference) {
+  .nav-indicator[data-ready="true"] { transition:transform .45s cubic-bezier(.65,0,.25,1.15),width .45s cubic-bezier(.65,0,.25,1.15),opacity .3s ease; }
+}
 .hero-kicker { color:var(--accent-text); }
 .hero-kicker .status-dot { width:6px; height:6px; }
 .eyebrow { color:var(--accent-text); display:flex; align-items:center; gap:10px; }
@@ -353,3 +361,52 @@ html { scroll-padding-top:124px; }
 .theme-toggle[aria-checked="true"] .theme-sun { color:#000; }
 .theme-toggle:hover .theme-track { border-color:var(--accent-text); }
 @media(prefers-reduced-motion:no-preference) { .theme-thumb { transition:transform .2s ease; } }
+
+/* Shared section grid: About and Features headings use identical columns so
+   the left titles and right copy line up on the same vertical axes. */
+.about-grid,.section-heading { display:grid; grid-template-columns:5fr 7fr; gap:72px; align-items:start; }
+.about-grid h2,.section-heading h2 { margin-bottom:0; }
+.about-grid>div:last-child,.section-heading>p { padding-top:46px; max-width:600px; }
+.section-heading { margin-bottom:48px; grid-template-columns:1fr; }
+.section-heading>p { font-size:19px; line-height:1.7; }
+.about-grid .large-copy { font-size:26px; margin-bottom:18px; }
+.section.features { padding-top:90px; }
+@media(max-width:760px) {
+  .about-grid,.section-heading { grid-template-columns:1fr; gap:20px; }
+  .about-grid>div:last-child,.section-heading>p { padding-top:0; }
+}
+
+/* Install-to-home-screen modal.
+   position:fixed is essential: a non-fixed modal dialog is laid out at the top
+   of the document, which made the page jump up when it opened. */
+.prototype-actions { justify-content:center; }
+html.modal-open { overflow:hidden; scrollbar-gutter:stable; }
+.install-card { position:fixed; inset:0; width:calc(100% - 32px); max-width:420px; height:fit-content; max-height:calc(100dvh - 32px); overflow:auto; margin:auto; padding:0; border:1px solid var(--line); border-radius:22px; background:var(--surface); color:var(--text); text-align:left; box-shadow:0 30px 80px #0007; }
+.install-card::backdrop { background:rgb(0 0 0 / 65%); backdrop-filter:blur(6px); }
+.install-inner { position:relative; padding:32px 28px 24px; }
+.install-close { position:absolute; top:16px; right:16px; width:36px; height:36px; display:grid; place-items:center; border:0; border-radius:50%; background:var(--raised); color:var(--muted); cursor:pointer; }
+.install-close:hover { color:var(--text); }
+.install-head { text-align:center; margin-bottom:24px; }
+.install-icon { width:56px; height:56px; display:grid; place-items:center; margin:0 auto 18px; border-radius:16px; background:var(--brand); color:#000; box-shadow:0 10px 28px rgb(255 105 0 / 35%); }
+.install-head h2 { font-size:22px; line-height:1.3; letter-spacing:-.5px; margin:0 0 8px; }
+.install-head p { margin:0 auto; max-width:30ch; color:var(--muted); font-size:15px; line-height:1.55; }
+.install-label { margin:0 0 6px; font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--accent-text); }
+.install-perms { list-style:none; margin:0 0 20px; padding:0; }
+.install-perms li { display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid var(--line); }
+.install-perms li:last-child { border-bottom:0; }
+.install-perm-icon { display:grid; place-items:center; width:36px; height:36px; flex-shrink:0; border-radius:10px; background:var(--brand-soft); color:var(--accent-text); }
+.install-perms strong { display:block; font-size:15px; line-height:1.35; }
+.install-perms p { margin:0; color:var(--muted); font-size:13.5px; line-height:1.45; }
+.install-ios { display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin:0 0 18px; padding:11px 14px; border-radius:12px; background:var(--raised); font-size:13.5px; color:var(--muted); }
+.install-ios svg { color:var(--accent-text); }
+.install-actions { display:grid; gap:4px; }
+.install-actions .button { width:100%; min-height:50px; font-size:15px; }
+.install-later { min-height:44px; border:0; background:transparent; color:var(--muted); font-size:14px; font-weight:600; cursor:pointer; border-radius:8px; }
+.install-later:hover { color:var(--text); }
+@media(prefers-reduced-motion:no-preference) {
+  .install-card[open] { animation:sayit-pop .3s cubic-bezier(.2,.9,.3,1.1) both; }
+  .install-card[open]::backdrop { animation:sayit-fade .3s ease both; }
+}
+@keyframes sayit-pop { from { opacity:0; transform:translateY(16px) scale(.97); } to { opacity:1; transform:none; } }
+@keyframes sayit-fade { from { opacity:0; } to { opacity:1; } }
+@media(max-width:480px) { .install-inner { padding:28px 20px 18px; } }
